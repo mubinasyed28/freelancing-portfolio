@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gen AI Solutions - Pitch Deck</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0e27;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(118, 75, 162, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
+            animation: backgroundPulse 10s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes backgroundPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Floating particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(102, 126, 234, 0.6);
+            border-radius: 50%;
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% {
+                transform: translateY(-100vh) translateX(50px);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .slide {
+            display: none;
+            width: 90%;
+            max-width: 1300px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(30px);
+            border-radius: 40px;
+            padding: 70px;
+            box-shadow: 
+                0 30px 90px rgba(0, 0, 0, 0.5),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+            animation: slideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Slide 1 - Intro */
+        .intro-slide {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 400px;
+        }
+
+        .intro-slide h1 {
+            font-size: 5em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 30px;
+            font-weight: 900;
+            letter-spacing: -2px;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+            position: relative;
+        }
+
+        @keyframes titleGlow {
+            from {
+                filter: drop-shadow(0 0 20px rgba(102, 126, 234, 0.4));
+            }
+            to {
+                filter: drop-shadow(0 0 40px rgba(118, 75, 162, 0.6));
+            }
+        }
+
+        .intro-slide .subtitle {
+            font-size: 2em;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 50px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .intro-slide .tagline {
+            font-size: 1.3em;
+            color: rgba(255, 255, 255, 0.6);
+            font-style: italic;
+            font-weight: 300;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Slide 2 - Services */
+        .services-slide h2 {
+            font-size: 3.5em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 60px;
+            text-align: center;
+            font-weight: 800;
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
+            margin-top: 40px;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 25px;
+            color: white;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(102, 126, 234, 0.3);
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-card h3 {
+            font-size: 1.9em;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+            font-weight: 700;
+        }
+
+        .service-card p {
+            font-size: 1.1em;
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .service-icon {
+            font-size: 3.5em;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+            display: inline-block;
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Slide 3 - Projects */
+        .projects-slide h2 {
+            font-size: 3.5em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 60px;
+            text-align: center;
+            font-weight: 800;
+        }
+
+        .project-list {
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+        }
+
+        .project-item {
+            background: linear-gradient(135deg, rgba(240, 147, 251, 0.15) 0%, rgba(245, 87, 108, 0.15) 100%);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 25px;
+            color: white;
+            border-left: 5px solid #f093fb;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(240, 147, 251, 0.3);
+        }
+
+        .project-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 20px 50px rgba(240, 147, 251, 0.3);
+            border-left-width: 8px;
+        }
+
+        .project-item h3 {
+            font-size: 2em;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .project-item p {
+            font-size: 1.15em;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        /* Slide 4 - Team */
+        .team-slide h2 {
+            font-size: 3.5em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 60px;
+            text-align: center;
+            font-weight: 800;
+        }
+
+        .team-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 80px;
+            padding: 40px 0;
+        }
+
+        .team-member {
+            text-align: center;
+            flex: 0 1 300px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .team-avatar {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            font-size: 5em;
+            color: white;
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .team-avatar::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .team-member:hover .team-avatar {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .team-member:hover .team-avatar::before {
+            opacity: 0.5;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.3; }
+        }
+
+        .team-member h3 {
+            font-size: 2.3em;
+            color: white;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .team-member .role {
+            font-size: 1.5em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+        }
+
+        /* Slide 5 - Contact */
+        .contact-slide {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 400px;
+        }
+
+        .contact-slide h2 {
+            font-size: 3.5em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 40px;
+            font-weight: 800;
+        }
+
+        .contact-slide p {
+            font-size: 1.6em;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 50px;
+            font-weight: 300;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px 60px;
+            font-size: 1.6em;
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.08) translateY(-5px);
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.6);
+        }
+
+        /* Navigation */
+        .nav-buttons {
+            position: fixed;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 25px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 18px 40px;
+            border-radius: 60px;
+            cursor: pointer;
+            font-size: 1.15em;
+            font-weight: 600;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+
+        .slide-indicator {
+            position: fixed;
+            top: 50px;
+            right: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            padding: 18px 30px;
+            border-radius: 60px;
+            font-size: 1.3em;
+            font-weight: 600;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 40px 30px;
+            }
+
+            .intro-slide h1 {
+                font-size: 3em;
+            }
+
+            .services-slide h2,
+            .projects-slide h2,
+            .team-slide h2,
+            .contact-slide h2 {
+                font-size: 2.2em;
+            }
+
+            .service-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team-avatar {
+                width: 180px;
+                height: 180px;
+                font-size: 4em;
+            }
+
+            .nav-buttons {
+                bottom: 30px;
+            }
+
+            .nav-btn {
+                padding: 12px 25px;
+                font-size: 1em;
+            }
+
+            .slide-indicator {
+                top: 30px;
+                right: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+
+    <div class="slide-indicator">
+        <span id="currentSlide">1</span> / <span id="totalSlides">5</span>
+    </div>
+
+    <div class="container">
+        <!-- Slide 1 & 2: Introduction -->
+        <div class="slide active" data-slide="1">
+            <div class="intro-slide">
+                <h1>Krishna Kaushik</h1>
+                <p class="subtitle">Gen AI Freelancer</p>
+                <p class="tagline">Transforming businesses with intelligent automation and AI solutions</p>
+            </div>
+        </div>
+        
+        <div class="slide active" data-slide="1">
+            <div class="intro-slide">
+                <h1>Mubina</h1>
+                <p class="subtitle">Software & AI Developer</p>
+                <p class="tagline">Transforming ideas into scalable, intelligent products</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: Services -->
+        <div class="slide" data-slide="2">
+            <div class="services-slide">
+                <h2>What We Offer</h2>
+                <div class="service-grid">
+                    <div class="service-card">
+                        <div class="service-icon">🤖</div>
+                        <h3>AI Automation</h3>
+                        <p>Save countless hours by automating repetitive tasks with intelligent AI systems that work 24/7 for your business.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">💬</div>
+                        <h3>Smart Chatbots</h3>
+                        <p>Engage your customers instantly on your website and Instagram DMs with AI-powered chatbots that convert visitors into leads.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🎤</div>
+                        <h3>Voice Agents</h3>
+                        <p>Deploy intelligent voice agents that handle customer inquiries, schedule appointments, and provide support naturally.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">💰</div>
+                        <h3>Revenue Generation</h3>
+                        <p>Increase your revenue by targeting the right customers at the right time with AI-driven engagement strategies.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">⏱️</div>
+                        <h3>Time Savings</h3>
+                        <p>Focus on what matters most while AI handles customer outreach, follow-ups, and routine communications.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">📊</div>
+                        <h3>Client Sequencing</h3>
+                        <p>Automate your client journey with smart workflows that nurture leads and convert them into loyal customers.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Projects -->
+        <div class="slide" data-slide="3">
+            <div class="projects-slide">
+                <h2>Our Projects</h2>
+                <div class="project-list">
+                    <div class="project-item">
+                        <h3>🎤 AI Voice Agent Systems</h3>
+                        <p>Developed intelligent voice agents that handle customer calls, answer queries, book appointments, and provide 24/7 support. These systems understand natural language and respond like human agents, reducing response time by 90% and customer service costs by 70%.</p>
+                    </div>
+                    <div class="project-item">
+                        <h3>💬 Advanced Chatbot Solutions</h3>
+                        <p>Created conversational AI chatbots for websites and Instagram DMs that engage visitors, qualify leads, and drive conversions. Our chatbots have helped clients increase lead generation by 300% while providing instant customer support around the clock.</p>
+                    </div>
+                    <div class="project-item">
+                        <h3>🔄 Client Sequencing Automation</h3>
+                        <p>Built end-to-end automation systems that nurture leads through personalized customer journeys. From initial contact to conversion, our intelligent workflows follow up with prospects at the perfect time, increasing conversion rates by 250%.</p>
+                    </div>
+                    <div class="project-item">
+                        <h3>📈 Multi-Channel Engagement</h3>
+                        <p>Integrated AI systems across multiple platforms including websites, social media, email, and messaging apps. Our unified approach ensures consistent customer experience and captures leads from every touchpoint, maximizing ROI.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Team -->
+        <div class="slide" data-slide="4">
+            <div class="team-slide">
+                <h2>Meet the Team</h2>
+                <div class="team-container">
+                    <div class="team-member">
+                        <div class="team-avatar">👨‍💻</div>
+                        <h3>Krishna Kaushik</h3>
+                        <p class="role">AI Engineer</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="team-avatar">👩🏻‍💻</div>
+                        <h3>Mubina</h3>
+                        <p class="role">Software Engineer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Contact -->
+        <div class="slide" data-slide="5">
+            <div class="contact-slide">
+                <h2>Let's Transform Your Business</h2>
+                <p>Ready to save time, increase revenue, and delight your customers with AI?</p>
+                <button class="cta-button" onclick="alert('Contact us to get started with your AI transformation!')">Get Started Today</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-buttons">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">← Previous</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Next →</button>
+    </div>
+
+    <script>
+        // Create floating particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        let currentSlide = 1;
+        const totalSlides = 6;
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            
+            if (n > totalSlides) currentSlide = 1;
+            if (n < 1) currentSlide = totalSlides;
+            
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[currentSlide - 1].classList.add('active');
+            
+            document.getElementById('currentSlide').textContent = currentSlide;
+            
+            // Update button states
+            document.getElementById('prevBtn').style.opacity = currentSlide === 1 ? '0.5' : '1';
+            document.getElementById('nextBtn').style.opacity = currentSlide === totalSlides ? '0.5' : '1';
+        }
+
+        function changeSlide(direction) {
+            currentSlide += direction;
+            showSlide(currentSlide);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
+        });
+
+        // Initialize
+        document.getElementById('totalSlides').textContent = totalSlides;
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>
